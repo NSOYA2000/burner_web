@@ -10,7 +10,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/login'
+    redirect: '/user'
   },
   {
     path: '/login',
@@ -36,10 +36,15 @@ export const constantRoutes = [
     path: '/potdetail',
     component: () => import('@/views/pot_detail'),
     hidden: true
-  }
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 
   // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 /**

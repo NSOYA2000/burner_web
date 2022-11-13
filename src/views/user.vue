@@ -48,6 +48,13 @@
                 <span v-else>--</span>
               </template>
             </el-table-column>
+            <el-table-column label="账户类型">
+              <template slot-scope="scope">
+                <span>{{
+                  scope.row.type == 1 ? "超级管理员" : "普通用户"
+                }}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="createdTime" label="创建时间" />
             <el-table-column label="操作" width="300px">
               <template slot-scope="scope">
@@ -169,7 +176,7 @@ import {
   updatePassword,
   deleteUser
 } from '@/api/user'
-import { removeToken, getUserName } from '@/utils/auth'
+import { removeToken, setToken, getUserName } from '@/utils/auth'
 const Base64 = require('js-base64').Base64
 export default {
   data() {
@@ -504,10 +511,11 @@ export default {
     logout() {
       console.warn('注销')
       removeToken()
-      this.$router.push({
-        path: '/',
-        query: {}
-      })
+      setTimeout(() => {
+        this.$router.push({
+          path: '/login'
+        })
+      }, 1000)
     }
   }
 }
