@@ -72,6 +72,7 @@ export default {
   },
   data() {
     return {
+      fullscreenLoading: false,
       ruleForm: {
         accountName: '',
         password: '',
@@ -126,14 +127,20 @@ export default {
     },
     // 获取验证码
     getCaptchaFun() {
+      this.showFullScreenLoading()
       var params = {}
-      getCapcha(params).then(res => {
-        console.log(res)
-        if (res['success']) {
-          this.validCode = Base64.decode(res['data']['captcha'])
-          this.ruleForm['key'] = res['data']['key']
-        }
-      })
+      getCapcha(params)
+        .then(res => {
+          console.log(res)
+          this.closeFullScreenLoading()
+          if (res['success']) {
+            this.validCode = Base64.decode(res['data']['captcha'])
+            this.ruleForm['key'] = res['data']['key']
+          }
+        })
+        .catch(() => {
+          this.closeFullScreenLoading()
+        })
     },
     refreshFun(val) {
       this.getCaptchaFun()
@@ -173,6 +180,23 @@ export default {
           return false
         }
       })
+    },
+    // loading显示函数
+    showFullScreenLoading(time = 10000) {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      this.fullscreenLoading = loading
+      setTimeout(() => {
+        loading.close()
+      }, time)
+    },
+    // loading关闭函数
+    closeFullScreenLoading() {
+      this.fullscreenLoading.close()
     }
   }
 }
