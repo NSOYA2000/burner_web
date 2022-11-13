@@ -1,13 +1,12 @@
-# di-siemore-web
+# burner-web
 
 ## Build Setup
 
 ```bash
 # clone the project
-git clone https://gitlab.siemens.com.cn/frontend/di-siemore-web.git
 
 # enter the project directory
-cd cms-web
+cd burner-web
 
 # install dependency
 yarn install
